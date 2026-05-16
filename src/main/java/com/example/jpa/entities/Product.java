@@ -1,5 +1,6 @@
 package com.example.jpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -22,8 +23,8 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-    @ManyToMany(mappedBy = "products")
-    private Set<Order> itens =new HashSet<>();
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> itens =new HashSet<>();
 
     public Product() {
     }
@@ -76,7 +77,8 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public Set<Order> getItens() {
+    @JsonIgnore
+    public Set<OrderItem> getItens() {
         return itens;
     }
 

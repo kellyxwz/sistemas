@@ -30,11 +30,8 @@ public class Order implements Serializable {
 
     private Integer orderStatus;
 
-    @ManyToMany
-    @JoinTable(name = "product_id",
-            joinColumns = @JoinColumn(name = "orde_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> products =new HashSet<>();
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order() {
     }
@@ -44,13 +41,6 @@ public class Order implements Serializable {
         this.momment = momment;
         setOrderStatus(orderStatus);
         this.client = client;
-    }
-
-    public Order(Instant momment, User client, OrderStatus orderStatus, Long id) {
-        this.momment = momment;
-        this.client = client;
-        setOrderStatus(orderStatus);
-        this.id = id;
     }
 
     public Long getId() {
@@ -85,6 +75,9 @@ public class Order implements Serializable {
         if (orderStatus != null) {
             this.orderStatus = orderStatus.getCode();
         }
+    }
+    public Set<OrderItem> getItems() {
+        return items;
     }
 
     @Override
