@@ -1,9 +1,11 @@
 package com.example.jpa.config;
 
 import com.example.jpa.entities.Order;
+import com.example.jpa.entities.Product;
 import com.example.jpa.entities.User;
 import com.example.jpa.entities.enuns.OrderStatus;
 import com.example.jpa.repository.OrderRepository;
+import com.example.jpa.repository.ProductRepository;
 import com.example.jpa.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +21,9 @@ import java.util.Arrays;
 public class testconfig implements CommandLineRunner {
 
     @Autowired
+    public ProductRepository productRepository;
+
+    @Autowired
     public UserRepository userRepository;
 
     @Autowired
@@ -26,7 +31,13 @@ public class testconfig implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args)  {
+
+        Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+        Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+        Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+
+        productRepository.saveAll(Arrays.asList(p1,p2,p3));
 
         User u1 = new User(null, "maria lucia", "maria@gmail.com", "998877", "1236" );
         User u2 = new User(null, "lucia", "lulu@gmail.com", "99889877", "4455" );
