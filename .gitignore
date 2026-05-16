@@ -24,6 +24,7 @@ target/
 
 ### Application sensitive configs  ###
 application-prod.properties
+docker-compose.yml
 
 ### NetBeans ###
 /nbproject/private/

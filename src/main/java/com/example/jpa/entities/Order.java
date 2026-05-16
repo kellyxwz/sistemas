@@ -23,12 +23,19 @@ public class Order implements Serializable {
     private Instant momment;
 
     @ManyToOne
-    @JoinColumn(name = "client")
+    @JoinColumn(name = "client_id")
     private User client;
 
     private Integer orderStatus;
 
     public Order() {
+    }
+
+    public Order(Long id, Instant momment, OrderStatus orderStatus, User client) {
+        this.id = id;
+        this.momment = momment;
+        setOrderStatus(orderStatus);
+        this.client = client;
     }
 
     public Order(Instant momment, User client, OrderStatus orderStatus, Long id) {
