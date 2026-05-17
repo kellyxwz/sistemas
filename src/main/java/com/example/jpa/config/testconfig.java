@@ -28,9 +28,16 @@ public class testconfig implements CommandLineRunner {
     @Autowired
     public OrderRepository orderRepository;
 
+    @Autowired
+    public CategoryRespository categoryRespository;
+
 
     @Override
     public void run(String... args)  {
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+
 
         Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
         Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
@@ -55,6 +62,7 @@ public class testconfig implements CommandLineRunner {
         orderRepository.saveAll(Arrays.asList(o1,o2));
         productRepository.saveAll(Arrays.asList(p1,p2,p3));
         orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3));
+        categoryRespository.saveAll(Arrays.asList(cat1,cat2));
 
 
 
