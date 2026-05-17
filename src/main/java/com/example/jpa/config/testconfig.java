@@ -1,14 +1,8 @@
 package com.example.jpa.config;
 
-import com.example.jpa.entities.Order;
-import com.example.jpa.entities.OrderItem;
-import com.example.jpa.entities.Product;
-import com.example.jpa.entities.User;
+import com.example.jpa.entities.*;
 import com.example.jpa.entities.enuns.OrderStatus;
-import com.example.jpa.repository.OrderItemRepository;
-import com.example.jpa.repository.OrderRepository;
-import com.example.jpa.repository.ProductRepository;
-import com.example.jpa.repository.UserRepository;
+import com.example.jpa.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -48,9 +42,14 @@ public class testconfig implements CommandLineRunner {
         Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.WAITING_PAYMENT, u1);
         Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.PAYD, u2);
 
+
         OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
         OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
         OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+
+        Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+        o1.setPayment(pay1);
+
 
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2));
