@@ -1,13 +1,14 @@
-# Etapa de build
+
 FROM eclipse-temurin:21 AS build
 
 WORKDIR /app
 
 COPY . .
 
+RUN chmod +x mvnw
+
 RUN ./mvnw clean package -DskipTests
 
-# Etapa final
 FROM eclipse-temurin:21
 
 WORKDIR /app
