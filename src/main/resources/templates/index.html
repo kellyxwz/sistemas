@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Pedidos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        p {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #cbd5e1;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #3b82f6;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            background: #2563eb;
+        }
+
+        .response {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 250px;
+            overflow-x: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #e2e8f0;
+        }
+
+        .loading {
+            color: #facc15;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🚀 Sistema de Pedidos</h1>
+    <p>Frontend simples consumindo sua API hospedada no Render</p>
+
+    <div class="buttons">
+        <button onclick="buscarUsuarios()">Buscar Usuários</button>
+        <button onclick="buscarProdutos()">Buscar Produtos</button>
+        <button onclick="buscarPedidos()">Buscar Pedidos</button>
+        <button onclick="limparTela()">Limpar</button>
+    </div>
+
+    <div class="response">
+        <pre id="resultado">Clique em um botão para consumir sua API...</pre>
+    </div>
+</div>
+
+<script>
+    const API_URL = "https://sistemas-de-pedido.onrender.com";
+    const resultado = document.getElementById("resultado");
+
+    async function consumirRota(endpoint) {
+        try {
+            resultado.innerHTML = '<span class="loading">Carregando dados...</span>';
+
+            const response = await fetch(`${API_URL}${endpoint}`);
+
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            resultado.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+            resultado.textContent = `Erro ao conectar na API:\n\n${error.message}`;
+        }
+    }
+
+    function buscarUsuarios() {
+        consumirRota('/users');
+    }
+
+    function buscarProdutos() {
+        consumirRota('/products');
+    }
+
+    function buscarPedidos() {
+        consumirRota('/orders');
+    }
+
+    function limparTela() {
+        resultado.textContent = 'Tela limpa.';
+    }
+</script>
+</body>
+</html>
