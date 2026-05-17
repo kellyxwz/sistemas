@@ -1,11 +1,24 @@
 HELP.md
+
 target/
-.mvn/wrapper/maven-wrapper.jar
+build/
+
+
 !**/src/main/**/target/
 !**/src/test/**/target/
 
 ### VARIABLES ###
 .env
+
+### Application sensitive configs ###
+application-dev.properties
+postgres_data/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
 ### STS ###
 .apt_generated
@@ -16,26 +29,12 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### Application sensitive configs  ###
-application-prod.properties
-docker-compose.yml
-postgres_data/
-
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
